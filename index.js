@@ -68,11 +68,14 @@ const rockets = [
 const lancamentosTotal = rockets.reduce( (valAnt, elem) => valAnt + elem.lancamentos, 0 )
 console.log(lancamentosTotal)
 
-function reduceMao(lancamentos){
-    for(i = 0; i < rockets.length; i++){
-        valPost = rockets[i+1]
-        return lancamentos + valPost
-    }
-}
-const totaLancamentos = rockets.reduce(reduceMao)
-console.log(totaLancamentos) 
+/* Juntando as funções MAP, FILTER E REDUCE */
+const numeros = [1, 3, 5, 6, 8, 54, 68]
+// Filtrar os pares
+const filteredNumbers = numeros.filter(num => (num % 2 == 0))
+console.log(filteredNumbers)
+// Retornar o dobro dos pares
+const doubleFilteredNumbers = filteredNumbers.map(num => (num * 2))
+console.log(doubleFilteredNumbers)
+// Reduzir (somando tudo)
+const oneNumber = doubleFilteredNumbers.reduce((valAnt, num) => valAnt + num, 0)
+console.log(oneNumber)
