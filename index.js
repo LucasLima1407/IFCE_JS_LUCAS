@@ -79,3 +79,15 @@ console.log(doubleFilteredNumbers)
 // Reduzir (somando tudo)
 const oneNumber = doubleFilteredNumbers.reduce((valAnt, num) => valAnt + num, 0)
 console.log(oneNumber)
+
+/* DIFERENÇA DE UMA ARROW FUNCTION E UMA FUNÇÃO NORMAL */
+// Arrow functions são funções anônimas utilizadas geralmente para callback
+const cidades = [
+    'Delaware',
+    'Seattle',
+    'Washington',
+    'Nova York'
+]
+
+const tamanho = cidades.map(cidades => cidades.length)
+console.log(tamanho)
