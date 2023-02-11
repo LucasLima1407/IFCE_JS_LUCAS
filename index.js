@@ -66,19 +66,19 @@ const rockets = [
 
 /* Utilizando arrow function */
 const lancamentosTotal = rockets.reduce( (valAnt, elem) => valAnt + elem.lancamentos, 0 )
-console.log(lancamentosTotal)
+//console.log(lancamentosTotal)
 
 /* Juntando as funções MAP, FILTER E REDUCE */
 const numeros = [1, 3, 5, 6, 8, 54, 68]
 // Filtrar os pares
 const filteredNumbers = numeros.filter(num => (num % 2 == 0))
-console.log(filteredNumbers)
+//console.log(filteredNumbers)
 // Retornar o dobro dos pares
 const doubleFilteredNumbers = filteredNumbers.map(num => (num * 2))
-console.log(doubleFilteredNumbers)
+//console.log(doubleFilteredNumbers)
 // Reduzir (somando tudo)
 const oneNumber = doubleFilteredNumbers.reduce((valAnt, num) => valAnt + num, 0)
-console.log(oneNumber)
+//console.log(oneNumber)
 
 /* DIFERENÇA DE UMA ARROW FUNCTION E UMA FUNÇÃO NORMAL */
 // Arrow functions são funções anônimas utilizadas geralmente para callback
@@ -90,4 +90,101 @@ const cidades = [
 ]
 
 const tamanho = cidades.map(cidades => cidades.length)
-console.log(tamanho)
+//console.log(tamanho)
+
+
+/* ORIENTAÇÃO A OBJETOS EM JS */
+// Um objeto é formado por uma par, chaves e valor 
+const pessoa = {
+    nome : 'Lucas', 
+    sobrenome : 'Lima',
+    idade : 19
+}
+//console.log('Olá, eu sou ' + pessoa.nome)
+//console.log('Meu sobrenome é ' + pessoa.sobrenome + ', prazer')
+
+//Utilizamos com colchetes caso queíramos acessar dinamicamente um atributo
+//const chave = 'nome'
+//console.log(pessoa[chave])
+
+//Também podemos fazer isso utilizando construtores
+/*const pessoa1 = new Object()
+pessoa1.nome = 'Lucas'
+pessoa1.sobrenome = 'Lima'
+pessoa1.idade = 19
+pessoa1.falarNome = function(){
+    console.log(`${this.nome} está falando seu nome`) 
+}
+pessoa1.getDataNascimento = function(){
+    const dataAtual = new Date()
+    return dataAtual.getFullYear() - pessoa1.idade
+}*/
+//console.log(pessoa1.nome)
+//console.log(pessoa1.sobrenome)
+//console.log('tenho ' + pessoa1.idade + ' anos')
+
+// A função dele serve para excluir um atributo
+//delete pessoa1.nome
+//console.log(pessoa, pessoa1)
+//console.log(pessoa1.getDataNascimento())
+
+/*for (let chave in pessoa1){
+    console.log(pessoa1[chave])
+}*/
+
+ // Factory Function
+
+ function criaPessoa(nome, sobrenome){
+    return {
+        nome, 
+        sobrenome,
+
+        get nomeCompleto(){
+            return `${this.nome} ${this.sobrenome}` 
+        }
+    }
+ }
+
+ const pessoa1 = criaPessoa('Lucas', 'Lima')
+ //console.log(pessoa1.nomeCompleto)
+
+ // Constructor function
+ function Pessoa(nome, sobrenome){
+    this.nome = nome 
+    this.sobrenome = sobrenome
+
+} 
+
+ /*Observa-se que ele mostra qual construtor criou aquela forma, new cria um objeto vazio e usa os this para determinar
+  os atributos, ao usar this podemos atrelar a várias pessoas*/
+/* const p1 = new Pessoa('Lucas', 'Lima')
+const p2 = new Pessoa('Clara', 'Savallas')
+ console.log(p1)
+ console.log(p2)*/
+
+ function Produto(nome, preco, estoque){
+    this.nome = nome
+    this.preco = preco
+    /* Usado para definir um atributo ou atributos dando propriedades da forma como você deseja, por exemplo se é possível
+    ler ou não */
+    Object.defineProperty(this, 'estoque', {
+        enumerable: true, // Mostra o atributo 
+        // value: estoque,  Determina o valor
+        // writable: true,  Diz se ele pode ou não ser alterado
+        configurable: true, // Se ele é configurável posteriormente ou não
+        get: function(){
+            return estoque
+        },
+        set: function(valor){
+            if(typeof valor !== 'number'){
+                throw new TypeError('Digite um valor')
+            }
+        }
+    })
+ }
+
+ const p1 = new Produto('Camisa', 25, 10)
+ //console.log(p1)
+ //console.log(Object.keys(p1))
+ p1.estoque = 'O valor que eu quero'
+ console.log(p1.estoque)
