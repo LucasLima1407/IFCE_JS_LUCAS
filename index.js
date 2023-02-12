@@ -171,20 +171,53 @@ const p2 = new Pessoa('Clara', 'Savallas')
         enumerable: true, // Mostra o atributo 
         // value: estoque,  Determina o valor
         // writable: true,  Diz se ele pode ou não ser alterado
-        configurable: true, // Se ele é configurável posteriormente ou não
+        configurable: true, // Se ele é deletável ou não
         get: function(){
             return estoque
         },
         set: function(valor){
             if(typeof valor !== 'number'){
                 throw new TypeError('Digite um valor')
+            } else {
+                estoque = valor
             }
         }
     })
  }
 
- const p1 = new Produto('Camisa', 25, 10)
+ //const p1 = new Produto('Camisa', 25, 10)
+ // ... Serve para criar objetos baseados em outros
+ //const p2 = {...p1, material: 'porcelana'}
+ // Object.assign funciona de forma similar
+ //const p3 = Object.assign({}, p1, {material: 'Algodão'})
  //console.log(p1)
+ // Object.keys joga as chaves (atributos do objeto)
  //console.log(Object.keys(p1))
- p1.estoque = 'O valor que eu quero'
- console.log(p1.estoque)
+ //Object.freeze impede alterações em objetos
+ //p2.nome = 'Chocolate'
+ //p2.preco = 5.00
+ //p2.estoque = 200
+ // Mostra as definições de property daquele atributo do objeto
+ //console.log(Object.getOwnPropertyDescriptor(p1, 'nome'))
+ // Object.values mostra os valores dentro das chaves do objeto
+ //for(let valor of Object.entries(p1) ){
+ //console.log(valor[0] + ': ' + valor[1])
+ //}
+ // Object.entries mostra o nome do atributo e seu valor em um array
+ //console.log(p2)
+ //console.log(p3)
+
+ // Prototypes
+ // Protótipo é algo que foi criado pela primeira vez e irá servir de molde para futuras criações
+ function Person(nome, sobrenome){
+    this.nome = nome
+    this.sobrenome = sobrenome
+ }
+ Person.prototype.nomeCompleto = function(){ 
+    return (this.nome + ' ' + this.sobrenome)
+ }
+ const p1 = new Person('Lucas', 'Lima')
+ const data = new Date()
+ console.dir(p1)
+ console.dir(p1.nomeCompleto())
+ console.dir(data.toLocaleDateString())
