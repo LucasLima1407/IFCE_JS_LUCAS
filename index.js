@@ -218,6 +218,56 @@ const p2 = new Pessoa('Clara', 'Savallas')
  }
  const p1 = new Person('Lucas', 'Lima')
  const data = new Date()
- console.dir(p1)
- console.dir(p1.nomeCompleto())
- console.dir(data.toLocaleDateString())
+ //console.dir(p1)
+ //console.dir(p1.nomeCompleto())
+ //console.dir(data.toLocaleDateString())
+
+ //Chamando automaticamente New Object -> Object.prototype
+ /*const objA = {
+    chaveA: 'A',
+ }*/
+ /*const objB = {
+    chaveB: 'B',
+ }
+ // Setando que ObjA é prótotipo do ObjB
+ Object.setPrototypeOf(objB, objA)
+ console.log(objB.chaveA)*/
+
+ function Produto(nome, preco){
+    this.nome = nome
+    this.preco = preco
+ }
+
+ Produto.prototype.Desconto = function (percentual){
+    this.preco = this.preco - (this.preco * (percentual/100))
+ }
+
+ const ProdutoA = new Produto('café', 20)
+ ProdutoA.Desconto(90)
+
+ const ProdutoB = {
+    nome: 'caneca',
+    preco: 15
+ }
+ Object.setPrototypeOf(ProdutoB, Produto.prototype)
+ProdutoB.Desconto(75)
+ //Chamamos o prótotipo fora do console.log ou ele irá retornar undefined
+ /*console.log(ProdutoA)
+ console.log(ProdutoB)*/
+
+ const ProdutoC = Object.create(Produto.prototype, {
+    nome: {
+        writable: true,
+        enumerable: true,
+        enumerable: true,
+        value: 'Canela'
+    },
+    preco: {
+        writable: true,
+        enumerable: true,
+        enumerable: true,
+        value: 5
+    }
+ })
+ ProdutoC.Desconto(50)
+ console.log(ProdutoC)
