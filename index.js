@@ -242,7 +242,11 @@ const p2 = new Pessoa('Clara', 'Savallas')
     this.preco = this.preco - (this.preco * (percentual/100))
  }
 
- const ProdutoA = new Produto('café', 20)
+ Produto.prototype.Aumento = function(percentual){
+    this.preco = this.preco + (this.preco * (percentual/100))
+ }
+
+ /*const ProdutoA = new Produto('café', 20)
  ProdutoA.Desconto(90)
 
  const ProdutoB = {
@@ -250,12 +254,12 @@ const p2 = new Pessoa('Clara', 'Savallas')
     preco: 15
  }
  Object.setPrototypeOf(ProdutoB, Produto.prototype)
-ProdutoB.Desconto(75)
+ProdutoB.Desconto(75)*/
  //Chamamos o prótotipo fora do console.log ou ele irá retornar undefined
  /*console.log(ProdutoA)
  console.log(ProdutoB)*/
 
- const ProdutoC = Object.create(Produto.prototype, {
+ /*const ProdutoC = Object.create(Produto.prototype, {
     nome: {
         writable: true,
         enumerable: true,
@@ -270,4 +274,38 @@ ProdutoB.Desconto(75)
     }
  })
  ProdutoC.Desconto(50)
- console.log(ProdutoC)
+ console.log(ProdutoC)*/
+
+ // HERANÇAS
+
+ function Caneca(nome, preco, material){
+    Produto.call(this, nome, preco)
+    this.material = material
+
+    Object.defineProperty(this, 'estoque', {
+        enumerable: true,
+        configurable: false,
+        get: function(){
+            return estoque
+        },
+        set: function(valor){
+            if(typeof valor !== 'number') return;
+            estoque = valor
+        }
+    })
+ }
+ // Serve para passar os prototypes da função PAI
+ Caneca.prototype = Object.create(Produto.prototype)
+ function Camiseta(nome, preco, cor){
+    Produto.call(this, nome, preco)
+    this.cor = cor
+ }
+ // Serve para passar os prototypes da função PAI
+Camiseta.prototype = Object.create(Produto.prototype)
+
+const c1 = new Camiseta('Bransk', 50, 'Cinza')
+const c2 = new Caneca('Nescau', 15, 'porcelana')
+ c1.Aumento(75)
+ c2.Aumento(35)
+ console.log(c1)
+ console.log(c2)
