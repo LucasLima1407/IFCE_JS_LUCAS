@@ -278,7 +278,7 @@ ProdutoB.Desconto(75)*/
 
  // HERANÇAS
 
- function Caneca(nome, preco, material){
+ /*function Caneca(nome, preco, material){
     Produto.call(this, nome, preco)
     this.material = material
 
@@ -308,4 +308,16 @@ const c2 = new Caneca('Nescau', 15, 'porcelana')
  c1.Aumento(75)
  c2.Aumento(35)
  console.log(c1)
- console.log(c2)
+ console.log(c2)*/
+
+ function Conta(agencia, conta, saldo){
+    this.agencia = agencia
+    this.conta = conta 
+    this.saldo = saldo
+ }
+
+ Conta.prototype.Sacar(valor)
+
+ Conta.prototype.Depositar(valor)
+
+ Conta.prototype.verSaldo()
