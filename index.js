@@ -316,8 +316,43 @@ const c2 = new Caneca('Nescau', 15, 'porcelana')
     this.saldo = saldo
  }
 
- Conta.prototype.Sacar(valor)
+ Conta.prototype.Sacar = function(valor){
+    if(this.saldo < valor) {
+        throw new TypeError('Você tem menos dinheiro do que o desejado na sua conta')
+    }
+    this.saldo -= valor 
+    this.verSaldo()
+ }
 
- Conta.prototype.Depositar(valor)
+ Conta.prototype.Depositar = function(valor){
+    this.saldo += valor
+    this.verSaldo()
+ }
 
- Conta.prototype.verSaldo()
+ Conta.prototype.verSaldo = function(){
+    console.log(`Agência:${this.agencia}, Conta:${this.conta}, ` + 
+    `Saldo:R$${this.saldo.toFixed(2)}`)
+ }
+
+ const conta1 = new Conta('Nubank', '001', 500)
+ conta1.Depositar(200)
+ conta1.Sacar(600)
+
+ function ContaCorrente(agencia, conta, saldo, limite){
+    Conta.call(this, agencia, conta, saldo)
+    this.limite = limite
+ }
+
+ ContaCorrente.prototype = Object.create(Conta.prototype)
+ ContaCorrente.prototype.constructor = ContaCorrente;
+
+ ContaCorrente.prototype.Sacar = function(valor){
+    if((this.saldo + this.limite) < valor) {
+        throw new TypeError('Você tem menos limite do que o desejado na sua conta')
+    }
+    this.saldo -= valor 
+    this.verSaldo()
+ }
+
+ const conta2 = new ContaCorrente('Nubank', '002', 500, 50)
+ conta2.Sacar(550)
