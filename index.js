@@ -218,6 +218,141 @@ const p2 = new Pessoa('Clara', 'Savallas')
  }
  const p1 = new Person('Lucas', 'Lima')
  const data = new Date()
- console.dir(p1)
- console.dir(p1.nomeCompleto())
- console.dir(data.toLocaleDateString())
+ //console.dir(p1)
+ //console.dir(p1.nomeCompleto())
+ //console.dir(data.toLocaleDateString())
+
+ //Chamando automaticamente New Object -> Object.prototype
+ /*const objA = {
+    chaveA: 'A',
+ }*/
+ /*const objB = {
+    chaveB: 'B',
+ }
+ // Setando que ObjA é prótotipo do ObjB
+ Object.setPrototypeOf(objB, objA)
+ console.log(objB.chaveA)*/
+
+ function Produto(nome, preco){
+    this.nome = nome
+    this.preco = preco
+ }
+
+ Produto.prototype.Desconto = function (percentual){
+    this.preco = this.preco - (this.preco * (percentual/100))
+ }
+
+ Produto.prototype.Aumento = function(percentual){
+    this.preco = this.preco + (this.preco * (percentual/100))
+ }
+
+ /*const ProdutoA = new Produto('café', 20)
+ ProdutoA.Desconto(90)
+
+ const ProdutoB = {
+    nome: 'caneca',
+    preco: 15
+ }
+ Object.setPrototypeOf(ProdutoB, Produto.prototype)
+ProdutoB.Desconto(75)*/
+ //Chamamos o prótotipo fora do console.log ou ele irá retornar undefined
+ /*console.log(ProdutoA)
+ console.log(ProdutoB)*/
+
+ /*const ProdutoC = Object.create(Produto.prototype, {
+    nome: {
+        writable: true,
+        enumerable: true,
+        enumerable: true,
+        value: 'Canela'
+    },
+    preco: {
+        writable: true,
+        enumerable: true,
+        enumerable: true,
+        value: 5
+    }
+ })
+ ProdutoC.Desconto(50)
+ console.log(ProdutoC)*/
+
+ // HERANÇAS
+
+ /*function Caneca(nome, preco, material){
+    Produto.call(this, nome, preco)
+    this.material = material
+
+    Object.defineProperty(this, 'estoque', {
+        enumerable: true,
+        configurable: false,
+        get: function(){
+            return estoque
+        },
+        set: function(valor){
+            if(typeof valor !== 'number') return;
+            estoque = valor
+        }
+    })
+ }
+ // Serve para passar os prototypes da função PAI
+ Caneca.prototype = Object.create(Produto.prototype)
+ function Camiseta(nome, preco, cor){
+    Produto.call(this, nome, preco)
+    this.cor = cor
+ }
+ // Serve para passar os prototypes da função PAI
+Camiseta.prototype = Object.create(Produto.prototype)
+
+const c1 = new Camiseta('Bransk', 50, 'Cinza')
+const c2 = new Caneca('Nescau', 15, 'porcelana')
+ c1.Aumento(75)
+ c2.Aumento(35)
+ console.log(c1)
+ console.log(c2)*/
+
+ function Conta(agencia, conta, saldo){
+    this.agencia = agencia
+    this.conta = conta 
+    this.saldo = saldo
+ }
+
+ Conta.prototype.Sacar = function(valor){
+    if(this.saldo < valor) {
+        throw new TypeError('Você tem menos dinheiro do que o desejado na sua conta')
+    }
+    this.saldo -= valor 
+    this.verSaldo()
+ }
+
+ Conta.prototype.Depositar = function(valor){
+    this.saldo += valor
+    this.verSaldo()
+ }
+
+ Conta.prototype.verSaldo = function(){
+    console.log(`Agência:${this.agencia}, Conta:${this.conta}, ` + 
+    `Saldo:R$${this.saldo.toFixed(2)}`)
+ }
+
+ const conta1 = new Conta('Nubank', '001', 500)
+ conta1.Depositar(200)
+ conta1.Sacar(600)
+
+ function ContaCorrente(agencia, conta, saldo, limite){
+    Conta.call(this, agencia, conta, saldo)
+    this.limite = limite
+ }
+
+ ContaCorrente.prototype = Object.create(Conta.prototype)
+ ContaCorrente.prototype.constructor = ContaCorrente;
+
+ ContaCorrente.prototype.Sacar = function(valor){
+    if((this.saldo + this.limite) < valor) {
+        throw new TypeError('Você tem menos limite do que o desejado na sua conta')
+    }
+    this.saldo -= valor 
+    this.verSaldo()
+ }
+
+ const conta2 = new ContaCorrente('Nubank', '002', 500, 50)
+ conta2.Sacar(550)
