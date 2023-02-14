@@ -1,5 +1,5 @@
 // Promises servem para time outs 
-function random(min, max){
+function random(min=0, max=3){
     min *= 1000;
     max *= 1000;
     return Math.floor(Math.random() * (max-min) + min)
@@ -75,7 +75,7 @@ baixarPagina().then(
 ).catch(e => console.log('ERRO:', e))*/
 
 // Promise.reject são promises que sempre irão retornar erros
-function baixarPagina(){
+/*function baixarPagina(){
     const emCache = true;
     if(emCache){
         return Promise.reject('A página está em cache')
@@ -88,4 +88,34 @@ baixarPagina().then(
     dadosPagina => {
         console.log(dadosPagina)
     }
-).catch(e => console.log('ERRO:', e))
+).catch(e => console.log('ERRO:', e))*/
+
+// ASYNC / AWAIT
+
+/*waitForIt('Fase 1', random()).then(valor => {
+    console.log(valor)
+    return waitForIt('Fase 2', random())
+}).then(fase => {
+    console.log(fase)
+    return waitForIt('Fase 3', random())
+}).then(fase => {
+    console.log('Terminamos na fase: ', fase)
+}).catch(error => console.log(error))*/
+
+async function execucao(){
+    try{
+    const fase1 = await waitForIt('Fase 1', random())
+    console.log(fase1)
+    setTimeout(function(){
+        console.log('Essa promise estava pendente:', fase1)
+    }, 1000)
+    const fase2 = await waitForIt('Fase 2', random())
+    console.log(fase2)
+    const fase3 = await waitForIt('Fase 3', random())
+    console.log(fase3)
+    console.log('Terminamos na fase:', fase3)
+} catch {
+    console.log('Ihh, deu erro')
+}
+}
+execucao()
