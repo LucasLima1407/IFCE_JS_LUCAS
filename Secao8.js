@@ -102,7 +102,7 @@ baixarPagina().then(
     console.log('Terminamos na fase: ', fase)
 }).catch(error => console.log(error))*/
 
-async function execucao(){
+/*async function execucao(){
     try{
     const fase1 = await waitForIt('Fase 1', random())
     console.log(fase1)
@@ -118,4 +118,48 @@ async function execucao(){
     console.log('Ihh, deu erro')
 }
 }
-execucao()
+execucao()*/
+
+const request = obj => {
+    return new Promise((resolve, reject)=> {
+        const xhr = new XMLHttpRequest();
+    // Get é para buscar um conteúdo da internet
+    xhr.open(obj.method ,obj.url, true);
+    xhr.send()
+
+    xhr.addEventListener('load', () =>{
+        if(xhr.status >= 200 && xhr.status < 300){
+            resolve(xhr.responseText)
+        } else {
+            reject(xhr.statusText)
+        }
+    })
+    })
+}
+document.addEventListener('click', e => {
+    const el = e.target;
+    const tag = el.tagName.toLowerCase();
+
+    if(tag === 'a'){
+        e.preventDefault();
+        loadPage(el);
+    }
+})
+
+async function loadPage(el){
+    const href = el.getAttribute('href')
+    const objConfig = {
+        method: 'GET',
+        url: href
+    }   
+    try{
+    const response = await request(objConfig)
+    carregaResultado(response)
+    } catch(e){
+        console.log(e)
+    }
+}
+function carregaResultado(response){
+    const resultado = document.querySelector('.resultado');
+    resultado.innerHTML = response
+}
