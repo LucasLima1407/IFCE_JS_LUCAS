@@ -147,19 +147,30 @@ document.addEventListener('click', e => {
 })
 
 async function loadPage(el){
+    try{
     const href = el.getAttribute('href')
     const objConfig = {
         method: 'GET',
         url: href
-    }   
-    try{
-    const response = await request(objConfig)
-    carregaResultado(response)
-    } catch(e){
-        console.log(e)
-    }
+    }  
+    const response = await fetch(href);
+    if(response.status !== 200) throw new Error('Error 404 ACHEI NADA');
+    const html = await response.text() 
+    carregaResultado(html)
+    } 
+catch(e){
+    console.log(e)
+}
 }
 function carregaResultado(response){
     const resultado = document.querySelector('.resultado');
     resultado.innerHTML = response
 }
+
+
+// FETCH
+
+/*fetch('pagina4.html').then(resposta => {
+    if(resposta.status !== 200) throw new Error('Error 404 ACHEI NADA')
+    return resposta.text()
+}).then(html => console.log(html)).catch(e => console.error(e))*/
