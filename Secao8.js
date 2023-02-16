@@ -1,5 +1,5 @@
 // Promises servem para time outs 
-function random(min=0, max=3){
+/*function random(min=0, max=3){
     min *= 1000;
     max *= 1000;
     return Math.floor(Math.random() * (max-min) + min)
@@ -7,18 +7,18 @@ function random(min=0, max=3){
 
 function waitForIt(msg, tempo){
     /* Resolve é para resolver suas promessas em partes do código que irão demorar, reject já vai p/ o 
-    catch */return new Promise((resolve, reject) => {
-        if(typeof msg !== 'string'){
-        reject('BAD VALUE')
-        return
-    }
+    catch */ //return new Promise((resolve, reject) => {
+    //    if(typeof msg !== 'string'){
+     //   reject('BAD VALUE')
+     //   return
+  //  }
     
-    setTimeout(() => {
-        resolve(msg.toUpperCase() + ' - Passei na promise');
-        return
-    }, tempo)
-});
-}
+   // setTimeout(() => {
+   //     resolve(msg.toUpperCase() + ' - Passei na promise');
+   //     return
+//    }, tempo)
+//})
+//}
 // Catchs sempre são para capturar erros
 /*waitForIt('Conectado ao BD', random(1,3)).then(resposta => {
     console.log(resposta)
@@ -37,12 +37,12 @@ function waitForIt(msg, tempo){
 // MÉTODOS PROMISE
 //Promise.all Promise.race Promise.resolve Promisse.reject
 
-const promises = [
+/*const promises = [
     waitForIt('Promise 2', 3000),
     waitForIt('Promise 3', 5000),
     waitForIt('Promise 1', 1000),
     //waitForIt(1000, 1000),
-]
+]*/
 // Executa todas as promisses e coloca em ordem normalmente caso uma dê erro, não retorna
 /*Promise.all(promises).then((valor => {
     console.log(valor)
@@ -120,7 +120,7 @@ baixarPagina().then(
 }
 execucao()*/
 
-const request = obj => {
+/*const request = obj => {
     return new Promise((resolve, reject)=> {
         const xhr = new XMLHttpRequest();
     // Get é para buscar um conteúdo da internet
@@ -165,7 +165,7 @@ catch(e){
 function carregaResultado(response){
     const resultado = document.querySelector('.resultado');
     resultado.innerHTML = response
-}
+}*/
 
 
 // FETCH
@@ -174,3 +174,31 @@ function carregaResultado(response){
     if(resposta.status !== 200) throw new Error('Error 404 ACHEI NADA')
     return resposta.text()
 }).then(html => console.log(html)).catch(e => console.error(e))*/
+
+
+axios('pessoas.json')
+  .then(resposta => carregaElementosNaPagina(resposta.data))
+
+  function carregaElementosNaPagina(json){
+    const tabela = document.createElement('table')
+    for(let pessoa of json){
+        const tr = document.createElement('tr')
+
+        let td = document.createElement('td')
+        td.innerHTML = pessoa.nome
+        tr.appendChild(td)
+
+         td = document.createElement('td')
+        td.innerHTML = pessoa.salario
+        tr.appendChild(td)
+
+        td = document.createElement('td')
+        td.innerHTML = pessoa.idade
+        tr.appendChild(td)
+
+
+        tabela.appendChild(tr)
+    }
+    const resultado = document.querySelector('.resultado')
+    resultado.appendChild(tabela)
+  }
