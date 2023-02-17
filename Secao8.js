@@ -12,6 +12,9 @@ function waitForIt(msg, tempo){
      //   reject('BAD VALUE')
      //   return
   //  }
+
+
+
     
    // setTimeout(() => {
    //     resolve(msg.toUpperCase() + ' - Passei na promise');
@@ -174,9 +177,7 @@ function carregaResultado(response){
     if(resposta.status !== 200) throw new Error('Error 404 ACHEI NADA')
     return resposta.text()
 }).then(html => console.log(html)).catch(e => console.error(e))*/
-
-
-axios('pessoas.json')
+axios.get('pessoas.json')
   .then(resposta => carregaElementosNaPagina(resposta.data))
 
   function carregaElementosNaPagina(json){
