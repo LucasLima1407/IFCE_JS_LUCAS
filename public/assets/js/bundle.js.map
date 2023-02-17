@@ -1,0 +1,1 @@
+{"version":3,"file":"bundle.js","mappings":";;;;;AAAA;;AAEAA,MAAM,CAACC,KAAK,CAAC,aAAa,CAAC,C","sources":["webpack://ifce_js_lucas/./src/secao9.js"],"sourcesContent":["//Sempre mexer no JS que estiver no SRC e não no public\n\nwindow.alert(\"Hello World\");"],"names":["window","alert"],"sourceRoot":""}
