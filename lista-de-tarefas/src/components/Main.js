@@ -6,6 +6,9 @@ class Main extends Component{
   state = {
     novaTarefa: '',
     tarefas: [
+      'Fazer Café',
+      'Tomar Água',
+      'Estudar'
     ]
   }
   handleSubmit = (e) => {
@@ -26,6 +29,47 @@ class Main extends Component{
       novaTarefa: e.target.value,
     })
   }
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { tarefas, index   } = this.state;
+    let { novaTarefa } = this.state;
+    novaTarefa = novaTarefa.trim();
+    if(tarefas.indexOf(novaTarefa) !== -1) return;
+
+    const novasTarefas = [...tarefas];
+
+    if(index === -1){
+      this.setState({
+        tarefas: [... novasTarefas, novaTarefa],
+        novaTarefa: ''
+      })
+    }else{
+      const novasTarefas = [...tarefas]
+      novasTarefas[index] = novaTarefa
+
+      this.setState({
+        tarefas:[...novasTarefas],
+        index: -1
+      })
+    }
+  }
+  handleEdit = (e, index) =>{
+    const { tarefas } = this.state
+    this.setState({
+      index,
+      novaTarefa: tarefas[index]
+    })
+  }
+  handleDelete = (e, index) =>{
+    const { tarefas } = this.state
+    const novasTarefas = [...tarefas]
+    novasTarefas.splice(index, 1)
+
+    this.setState({
+      tarefas: [...novasTarefas]
+    })
+  }
+
   render(){
     const { novaTarefa, tarefas } = this.state;
 
@@ -33,17 +77,17 @@ class Main extends Component{
     <div className="main">
       <h1>Lista de Tarefas</h1>
 
-      <form onSubmit={this.handleSubmit} className="form" action="#">
+      <form className="form" action="#">
         <input onChange={this.handleChange} type={"text"} />
         <button type="submit"><FaPlus /></button>
       </form>
       <ul className="tarefas">
-      {tarefas.map(tarefa => (
+      {tarefas.map((tarefa, index) => (
         <li key={tarefa}>{tarefa}
-          <span>
+          <div>
             <FaEdit className="edit"/>
-            <FaWindowClose onClick={this.handleDelete} className="delete"/>
-          </span>
+            <FaWindowClose className="delete"/>
+          </div>
         </li>
       ))}
       </ul>
