@@ -15,7 +15,7 @@ export function createPerson(
     lastName
   };
 }
-export function squareAll(x: any){
+export function squareAll(x: unknown){
   if(typeof x === "number"){
     return x * x;
   } else {
