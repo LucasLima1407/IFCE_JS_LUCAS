@@ -103,6 +103,7 @@
   "include": [
     "./src",
     "./src/Aula01-TypeAnnotations",
-    "./src/Aula02-TipoAny"
+    "./src/Aula02-TipoAny",
+    "./src/Aula03-TipoVoid"
   ]
 }
