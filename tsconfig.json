@@ -107,6 +107,7 @@
     "./src/Aula03-TipoVoid",
     "./src/Aula04-Objetos",
     "./src/Aula05-Array",
-    "./src/Aula06-TipoTuple"
+    "./src/Aula06-TipoTuple",
+    "./src/Aula07-NullEUndefined"
   ]
 }
