@@ -104,6 +104,7 @@
     "./src",
     "./src/Aula01-TypeAnnotations",
     "./src/Aula02-TipoAny",
-    "./src/Aula03-TipoVoid"
+    "./src/Aula03-TipoVoid",
+    "./src/Aula04-Objetos"
   ]
 }
