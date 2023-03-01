@@ -6,13 +6,12 @@ enum Cores {
 enum Cores {
   ROXO = "Roxo",
 }
-console.log(Cores.VERMELHO);
+/* console.log(Cores.VERMELHO);
 console.log(Cores.AZUL);
 console.log(Cores.AMARELO);
 console.log(Cores[0]);
-console.log(Cores.ROXO);
-
+console.log(Cores.ROXO); */
 function escolhaACor(cor: Cores): void{
-  console.log(Cores[cor]);
+  //console.log(Cores[cor]);
 }
 escolhaACor(Cores.ROXO);
