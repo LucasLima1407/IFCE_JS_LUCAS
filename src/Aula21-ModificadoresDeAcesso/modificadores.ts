@@ -19,7 +19,7 @@ export class Empresa {
 }
 
 export class Colaboradores{
-  constructor(//Nesse caso a declaração do modificador é obrigatória 
+  constructor(//Nesse caso a declaração do modificador é obrigatória
     public readonly nome: string,
     public readonly sobrenome: string){}
 }

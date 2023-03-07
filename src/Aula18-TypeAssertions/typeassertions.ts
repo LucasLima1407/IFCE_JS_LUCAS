@@ -14,6 +14,7 @@ const body4 = document.querySelector("body") as unknown as number;
 console.log(body4);
 
 // Non-null assertion
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const body2 = document.querySelector("body")!;
 if (body2) body2.style.background = "red";
 
