@@ -1,3 +1,4 @@
+// Associação e inversão de ddependências
 export class Escritor{
   private _ferramenta: Ferramenta | null = null;
 
