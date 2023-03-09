@@ -6,7 +6,7 @@ interface TipoPessoa{
  nomeCompleto(): string
 }
 //Type alias servindo como interface
-type Numero = number | string
+//type Numero = number | string
 
 type TipoPessoa2 = TipoPessoa
 
