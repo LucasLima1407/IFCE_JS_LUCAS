@@ -12,7 +12,7 @@ type Animal = {tipo: "animal", cor: string};
 type PessoaOuAnimal = Pessoa | Animal
 
 class Aluno implements Pessoa {
-  tipo: "pessoa" = "pessoa";
+  tipo = "pessoa" as const;
   constructor(public nome: string) {}
 }
 
